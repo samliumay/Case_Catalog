@@ -4,58 +4,80 @@ public class Employee {
     double maas;
     int haftalikCalismaSaati;
     int hireYear;
-    double vergi = 0.0D;
-    double bonus = 0.0D;
+    double vergi = 0;
+    double bonus = 0;
     double artis;
 
-    public Employee(String ad, double maas, int haftalikCalismaSaati, int hireYear) {
+    public Employee(String ad, double maas, int haftalikCalismaSaati, int hireYear)
+    {
         this.name = ad;
         this.maas = maas;
         this.haftalikCalismaSaati = haftalikCalismaSaati;
         this.hireYear = hireYear;
     }
 
-    public double tax() {
-        if (this.maas > 1000.0D) {
+    public double tax()
+    {
+        if (this.maas > 1000.0D)
+        {
             this.vergi = this.maas * 3.0D / 100.0D;
         }
 
         return this.vergi;
     }
 
-    public void bonus() {
-        if (this.haftalikCalismaSaati > 40) {
-            this.bonus = (double)((this.haftalikCalismaSaati - 40) * 30 * 4);
-            this.maas += this.bonus;
-        }
+    public double bonus()
+    {
+        if (this.haftalikCalismaSaati > 40)
+        {
+            this.bonus = (double)((this.haftalikCalismaSaati - 40) * 30 );
 
+        }
+    return this.bonus;
     }
 
-    public void raiseSalary() {
+    public double raiseSalary()
+    {
         int totalCalisma = 2021 - this.hireYear;
-        if (totalCalisma < 10) {
-            this.artis = this.maas * 5.0D / 100.0D;
-            this.maas += this.maas * 5.0D / 100.0D;
-        } else if (totalCalisma > 9 && totalCalisma < 20) {
-            this.artis = this.maas * 10.0D / 100.0D;
-            this.maas += this.maas * 10.0D / 100.0D;
-        } else if (totalCalisma > 19) {
-            this.artis = this.maas * 15.0D / 100.0D;
-            this.maas += this.maas * 15.0D / 100.0D;
+        if (totalCalisma < 10)
+        {
+            this.artis = this.maas * 5.0 / 100.0;
+
+        } else if (totalCalisma > 9 && totalCalisma < 20)
+        {
+            this.artis = this.maas * 10.0 / 100.0;
+
+        } else if (totalCalisma > 19)
+        {
+            this.artis = this.maas * 15.0 / 100.0D;
+
         }
 
+        return this.artis;
     }
 
-    public String toString() {
+    public String toString()
+    {
         String istenilen = "Adı: " + this.name + "\nMaası:" + this.maas + "\nCalisma saati: " + this.haftalikCalismaSaati + "\nBaslangic yili: " + this.hireYear + "\n";
-        this.maas -= this.tax();
-        this.bonus();
-        istenilen = istenilen + "Vergi: " + this.vergi + "\nBonus: " + this.bonus + "\n";
-        this.raiseSalary();
-        istenilen = istenilen + "Maas artisi: " + this.artis + "\nVergi: " + this.tax() + "\nBonus: " + this.bonus + "\nToplam maas: " + this.maas + "\n";
-        this.maas -= this.tax();
-        istenilen = istenilen + "Total Maas: " + this.maas;
+        double vergi = this.tax();
+        double bonus = this.bonus();
+        double artis = this.raiseSalary();
+
+        istenilen = istenilen + "Vergi: " + vergi + "\n" +"Bonus: " + bonus +"\n" +"Maas artisi: " + artis + "\n";
+        double vergiVeBonuslarIleMaas = this.maas - vergi + bonus;
+        istenilen = istenilen + "Vergi ve Bonuslar ile birlikte maaş : " + vergiVeBonuslarIleMaas + "\n";
+        double totalMaas = vergiVeBonuslarIleMaas + artis;
+        istenilen = istenilen + "Total maas : " +totalMaas + "\n";
+
+
+
         return istenilen;
     }
+    public static void main(String[] args) {
+        Employee deneme = new Employee("Emrah", 2000.0D, 45, 1985);
+        System.out.println(deneme);
+    }
 }
+
+
 
